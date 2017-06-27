@@ -6,24 +6,38 @@ from __future__ import print_function
 import csv
 from datetime import datetime
 import inspect
+import io
 import logging
 
 from lxml import html
+import requests
+from requests.exceptions import InvalidSchema
+
+SOURCE_URL = "https://www.nyu.edu/registrar/calendars/university-academic-calendar.html?display=2"  # noqa
 
 
 class CalendarStore(object):
     """Repository of academic calendars"""
     tree = None
 
-    def __init__(self, flo=None):
+    def __init__(self, source=None):
         """Initializer"""
-        if flo is not None:
-            self.tree = html.parse(flo)
+        if source is not None:
+            try:
+                self.tree = html.parse(source)
+            except OSError:
+                try:
+                    # Maybe it's a URL.  Replace with the contents of that URL
+                    source = requests.get(source).text
+                except InvalidSchema:
+                    # Or maybe it's not.  Must be just a blob of text.
+                    pass
+                self.tree = html.parse(io.StringIO(source))
 
     @property
     def calendars(self):
         """The list of available calendars"""
-        pass
+        raise NotImplementedError
 
     @property
     def calendar_names(self):
