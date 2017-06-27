@@ -38,10 +38,17 @@ def goldendir(request):
 
 
 @pytest.fixture
-def html_file(request, goldendir):
-    """NYU Academic Calendar HTML file"""
+def html_path(request, goldendir):
+    """NYU Academic Calendar HTML file path"""
     path = 'New York University - University Registrar - Calendars - Academic Calendar.html'  # noqa
-    f = goldendir.join(path).open()
+    return goldendir.join(path)
+
+
+@pytest.fixture
+def html_file(request, html_path):
+    """NYU Academic Calendar HTML file object"""
+    path = 'New York University - University Registrar - Calendars - Academic Calendar.html'  # noqa
+    f = html_path.open()
 
     def teardown():
         f.close()
@@ -54,6 +61,12 @@ def html_file(request, goldendir):
 def html_string(request, html_file):
     """NYU Academic Calendar HTML as string"""
     return html_file.read()
+
+
+gold_names = ['Fall 2016', 'Fall 2017', 'Fall 2018',
+              'January Term 2017', 'January Term 2018',
+              'Spring 2017', 'Spring 2018',
+              'Summer 2017', 'Summer 2018']
 
 
 @pytest.fixture
@@ -79,23 +92,21 @@ def is_not_online():
     except ConnectionError:
         return True
 
-
-@pytest.mark.skipif(
+onlyif_online = pytest.mark.skipif(
     is_not_online(),
     reason="Not online or nyu.edu is down",
 )
+
+
+@onlyif_online
 def test_calendar_store_construction_from_url():
     store = nyucal.CalendarStore(nyucal.SOURCE_URL)
     assert isinstance(store, nyucal.CalendarStore)
-
+    
 
 def test_get_calendar_names(calendar_store):
     """Test the `CalendarStore.calendar_names (property)` method"""
     calendar_names = calendar_store.calendar_names
-    gold_names = ['Fall 2016', 'Fall 2017', 'Fall 2018',
-                  'January Term 2017', 'January Term 2018',
-                  'Spring 2017', 'Spring 2018',
-                  'Summer 2017', 'Summer 2018']
     assert len(calendar_names) == len(gold_names)
     for name in gold_names:
         assert name in calendar_names
@@ -128,11 +139,16 @@ def test_write_csv(calendar_store, tmpdir, goldendir):
         writer.write(calendar)
     from difflib import unified_diff
     gold_path = goldendir.join('Fall2017.csv')
-    print(gold_path)
     with gold_path.open() as gold_file:
         lines = unified_diff(gold_file.readlines(), test_path.readlines(),
                              fromfile='expected', tofile='received')
         assert ''.join(lines) == ''
+
+
+@pytest.fixture
+def cli_runner(request):
+    """A command line runner for click applications"""
+    return CliRunner()
 
 
 def test_command_line_interface():
@@ -144,3 +160,30 @@ def test_command_line_interface():
     help_result = runner.invoke(cli.main, ['--help'])
     assert help_result.exit_code == 0
     assert '--help  Show this message and exit.' in help_result.output
+
+
+@onlyif_online
+def test_cli_list_default(cli_runner):
+    """Test the `nyucal list` command with no arguments"""
+    result = cli_runner.invoke(cli.main, ['list'])
+    assert result.exit_code == 0
+
+
+@onlyif_online
+def test_cli_list_from_url(cli_runner, html_path):
+    """Test the `nyucal list` command from a URL"""
+    result = cli_runner.invoke(cli.main,
+                               ['list', '--source=' + nyucal.SOURCE_URL])
+    assert result.exit_code == 0
+    for name in gold_names:
+        assert name in result.output
+
+
+def test_cli_list_from_file(cli_runner, html_path):
+    """Test the `nyucal list` command from a local file"""
+    result = cli_runner.invoke(cli.main,
+                               ['list', '--source=' + str(html_path)])
+    assert result.exit_code == 0
+    for name in gold_names:
+        assert name in result.output
+
