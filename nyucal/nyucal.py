@@ -1,7 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""Main module."""
+"""Main module.
+
+.. default-role:: code
+
+"""
 from __future__ import print_function
 import csv
 from datetime import datetime
@@ -18,7 +22,13 @@ SOURCE_URL = "https://www.nyu.edu/registrar/calendars/university-academic-calend
 
 class CalendarStore(object):
     """Repository of academic calendars"""
-    tree = None
+
+    _tree = None
+    """internal element tree.  An |lxml.etree.Element|_ tree.
+
+    .. |lxml.etree.Element| replace:: :code:`lxml.etree.Element`
+    .. _lxml.etree.Element: http://lxml.de/tutorial.html
+    """
 
     def __init__(self, source=None):
         """Initializer"""
@@ -32,7 +42,7 @@ class CalendarStore(object):
                 except InvalidSchema:
                     # Or maybe it's not.  Must be just a blob of text.
                     pass
-                self.tree = html.parse(io.StringIO(source))
+                self._tree = html.parse(io.StringIO(source))
 
     @property
     def calendars(self):
@@ -146,9 +156,24 @@ class Event(object):
     """A single event on an academic calendar"""
 
     name = None
+    """Name of the event.  Usually displayed as the event's title in the
+    calendar."""
+
     description = None
+    """Description of the event.  Usually only displayed on a focused
+    view of the event."""
+
     start = None
+    """Start date of the event.  A |datetime.date|_ object
+
+    Note that all NYU Calendar events are full day events.
+
+    .. |datetime.date| replace:: :code:`datetime.date`
+    .. _datetime.date: https://docs.python.org/3.5/library/datetime.html#date-objects
+    """  # noqa
+
     end = None
+    """End date of the event.  A |datetime.date|_ object"""
 
     def __init__(self, name=None, description=None, start=None, end=None):
         self.start = start
@@ -163,14 +188,14 @@ class GcalCsvWriter(csv.DictWriter):
 
     See `Google's documentation`_ on this CSV application.
 
-    .. _`Google's documenation`: https://support.google.com/calendar/answer/37118?hl=en
+    .. _Google's documentation: https://support.google.com/calendar/answer/37118?hl=en
     """  # noqa
-    field_names = ['Subject', 'Start Date', 'End Date', 'All Day Event',
-                   'Description']
-    date_format = '%m/%d/%Y'
+    _field_names = ['Subject', 'Start Date', 'End Date', 'All Day Event',
+                    'Description']
+    _date_format = '%m/%d/%Y'
 
     def __init__(self, file):
-        super(GcalCsvWriter, self).__init__(file, fieldnames=self.field_names)
+        super(GcalCsvWriter, self).__init__(file, fieldnames=self._field_names)
 
     def write(self, calendar):
         """Write the calendar to the CSV file."""
@@ -178,13 +203,13 @@ class GcalCsvWriter(csv.DictWriter):
         for event in calendar.events:
             event_dict = {
                 'Subject': event.name,
-                'Start Date': event.start.strftime(self.date_format),
+                'Start Date': event.start.strftime(self._date_format),
                 'All Day Event': True,
                 'Description': event.description
             }
             if event.end is None:
                 event_dict['End Date'] = event_dict['Start Date']
             else:
-                event_dict['End Date'] = event.end.strftime(self.date_format)
+                event_dict['End Date'] = event.end.strftime(self._date_format)
             self.writerow(event_dict)
 
