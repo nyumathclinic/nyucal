@@ -4,35 +4,78 @@
 Installation
 ============
 
+Environment
+-----------
 
-Stable release
---------------
+When installing software, you typically have two choices: install as root,
+or install as user in your own user space.  You may only have one choice
+if you don't have root privileges on your machine.
 
-To install NYU Academic Calendar Processing, run this command in your terminal:
+If you want to install :code:`nyucal` in the system's executable domain,
+you will probably need to preface any command below with :code:`sudo`.
+If you already know what that means, proceed with caution.  If you don't,
+consider one of the alternatives, which are designed to prevent you from
+wrecking your system unintentionally.
+
+To install in user space, you will need to add :code:`--user` to the
+installation commands.  The install scripts will put the files in the 
+places within your user directory that will automatically be searched.
+
+But :code:`nyucal` relies on other python packages to run correctly.
+Installing :code:`nyucal` will automatically download and install those
+packages as well.  This can be trouble if you have other versions of
+those packages already installed, and different modules require different
+versions.
+
+So as an alternative, python has *virtual environments.*  This is a way
+to set up a complete python sandbox with packages and executables.  Here
+is how to do that.
+
+You should have a :code:`virtualenv` executable on your system.  Run 
+it and give it the name of a directory, in which the environment will
+reside:
 
 .. code-block:: console
 
-    $ pip install nyucal
+    $ virtualenv ~/Library/virtualenv/nyucal
 
-This is the preferred method to install NYU Academic Calendar Processing, as it will always install the most recent stable release. 
+or, from another unix:
 
-If you don't have `pip`_ installed, this `Python installation guide`_ can guide
-you through the process.
+.. code-block:: console
 
-.. _pip: https://pip.pypa.io
-.. _Python installation guide: http://docs.python-guide.org/en/latest/starting/installation/
+    $ virtualenv ~/lib/virtualenv/nyucal
+
+Not sure of the best place for Windows.
+This will give you a shiny new python installation that is independent 
+from any others on your machine.  To activate it, change into the 
+directory specified above and run:
+
+.. code-block:: console
+
+    $ source bin/activate
+    (nyucal)$ which python
+    ...
+
+Notice how the prompt changes to indicate the active virtual environment.
+Your :code:`which` command should return the directory of your virtual 
+environment, with :code:`bin/python` attached.
+
+You can learn more about this from the `Virtualenv user guide`_.
+Trust me, it's worth it.
+
+.. _Virtualenv user guide: https://virtualenv.pypa.io/en/stable/userguide/
 
 
-From sources
-------------
+Installing from Source
+----------------------
 
-The sources for NYU Academic Calendar Processing can be downloaded from the `Github repo`_.
+The sources for can be downloaded from the `Github repo`_.
 
 You can either clone the public repository:
 
 .. code-block:: console
 
-    $ git clone git://github.com/leingang/nyucal
+    $ git clone git://github.com/nyumathclinic/nyucal
 
 Or download the `tarball`_:
 
@@ -40,12 +83,56 @@ Or download the `tarball`_:
 
     $ curl  -OL https://github.com/leingang/nyucal/tarball/master
 
-Once you have a copy of the source, you can install it with:
+Once you have a copy of the source, you can install it in the 
+virtual evironment with:
 
 .. code-block:: console
 
-    $ python setup.py install
+    $ source ~/path/to/virtualenv/bin/activate
+    (nyucal)$ python setup.py install 
+    (nyucal)$ deactivate
+    $ alias nyucal='~/path/to/virtualenv/bin/nyucal'
+
+Replace :code:`~/path/to/virtualenv/` with the path to your locally
+installed virtual environment.  
+
+The last line, which you can also put into your shell's :code:`.profile`, 
+will allow you to use :code:`nyucal` without always activating the virtual 
+environment.
+
+You can also install not in a virtual environment, as user:
+
+.. code-block:: console
+
+    $ python setup.py install --user
 
 
-.. _Github repo: https://github.com/leingang/nyucal
-.. _tarball: https://github.com/leingang/nyucal/tarball/master
+
+
+
+
+.. _Github repo: https://github.com/nyumathclinic/nyucal
+.. _tarball: https://github.com/nyumathclinic/nyucal/tarball/master
+
+Installing from Github
+----------------------
+
+We don't plan to publish on PyPI, so this won't work:
+
+.. code-block:: console
+
+    $ pip install nyucal
+
+You should be able to install from the github repo instead:
+
+.. code-block:: console
+
+    $ pip install git+https://github.com/nyumathclinic/nyucal.git
+
+For best results, use a virtual environment as above.
+
+If you don't have `pip`_ installed, this `Python installation guide`_ can guide
+you through the process.
+
+.. _pip: https://pip.pypa.io
+.. _Python installation guide: http://docs.python-guide.org/en/latest/starting/installation/

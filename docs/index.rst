@@ -1,5 +1,5 @@
-Welcome to NYU Academic Calendar Processing's documentation!
-======================================
+Processing the NYU Academic Calendar
+====================================
 
 Contents:
 
