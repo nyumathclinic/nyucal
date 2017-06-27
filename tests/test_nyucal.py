@@ -14,6 +14,10 @@ from click.testing import CliRunner
 from nyucal import nyucal
 from nyucal import cli
 
+import py.path
+import requests
+from requests.exceptions import ConnectionError
+
 
 @pytest.fixture
 def response():
@@ -26,11 +30,18 @@ def response():
 
 
 @pytest.fixture
-def html_file(request):
-    """NYU Academic Calendar HTML file"""
+def goldendir(request):
+    """Directory where golden files reside (a py.path.local object)
+    """
+    pwd = os.path.dirname(os.path.realpath(__file__))
+    return py.path.local(os.path.join(pwd, 'golden'))
 
+
+@pytest.fixture
+def html_file(request, goldendir):
+    """NYU Academic Calendar HTML file"""
     path = 'New York University - University Registrar - Calendars - Academic Calendar.html'  # noqa
-    f = open(os.path.join('golden', path))
+    f = goldendir.join(path).open()
 
     def teardown():
         f.close()
@@ -40,12 +51,41 @@ def html_file(request):
 
 
 @pytest.fixture
-def calendar_store(request):
-    return nyucal.CalendarStore(html_file(request))
+def html_string(request, html_file):
+    """NYU Academic Calendar HTML as string"""
+    return html_file.read()
 
 
-def test_calendar_store_construction(html_file):
+@pytest.fixture
+def calendar_store(request, html_file):
+    return nyucal.CalendarStore(html_file)
+
+
+def test_calendar_store_construction_from_file(html_file):
     store = nyucal.CalendarStore(html_file)
+    assert isinstance(store, nyucal.CalendarStore)
+
+
+def test_calendar_store_construction_from_string(html_string):
+    store = nyucal.CalendarStore(html_string)
+    assert isinstance(store, nyucal.CalendarStore)
+
+
+def is_not_online():
+    """check if the network is up"""
+    try:
+        requests.get('http://www.nyu.edu/')
+        return False
+    except ConnectionError:
+        return True
+
+
+@pytest.mark.skipif(
+    is_not_online(),
+    reason="Not online or nyu.edu is down",
+)
+def test_calendar_store_construction_from_url():
+    store = nyucal.CalendarStore(nyucal.SOURCE_URL)
     assert isinstance(store, nyucal.CalendarStore)
 
 
@@ -79,7 +119,7 @@ def test_get_calendar(calendar_store):
     #     assert calendar == golden_object
 
 
-def test_write_csv(calendar_store, tmpdir):
+def test_write_csv(calendar_store, tmpdir, goldendir):
     """Test writing to a CSV file"""
     calendar = calendar_store.calendar('Fall 2017')
     test_path = tmpdir.join('test.csv')
@@ -87,8 +127,9 @@ def test_write_csv(calendar_store, tmpdir):
         writer = nyucal.GcalCsvWriter(test_file)
         writer.write(calendar)
     from difflib import unified_diff
-    gold_path = os.path.join('golden', 'Fall2017.csv')
-    with open(gold_path) as gold_file:
+    gold_path = goldendir.join('Fall2017.csv')
+    print(gold_path)
+    with gold_path.open() as gold_file:
         lines = unified_diff(gold_file.readlines(), test_path.readlines(),
                              fromfile='expected', tofile='received')
         assert ''.join(lines) == ''
@@ -99,7 +140,7 @@ def test_command_line_interface():
     runner = CliRunner()
     result = runner.invoke(cli.main)
     assert result.exit_code == 0
-    assert 'nyucal.cli.main' in result.output
+    # assert 'nyucal.cli.main' in result.output
     help_result = runner.invoke(cli.main, ['--help'])
     assert help_result.exit_code == 0
     assert '--help  Show this message and exit.' in help_result.output
