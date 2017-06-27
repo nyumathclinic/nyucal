@@ -16,17 +16,50 @@ import requests
 @click.group()
 def main(args=None):
     """Console script for nyucal."""
-    click.echo("cli for nyucal")
+    pass
 
 
 @main.command()
-def list(source=None):
-    """List the available calendars in the calendar source"""
-    if source is None:
-        source = nyucal.SOURCE_URL  # noqa
+@click.option('--source', '-s', default=nyucal.SOURCE_URL,
+              help="""Calendars source (URL, file path, or string).
+              (default: {} """.format(nyucal.SOURCE_URL))
+def list(source):
+    """List the available calendars in the calendar source
+
+    Since the calendar store is, by default, scraped from a web page,
+    this command will fail if no source is specified and the computer
+    is not online.
+    """
     store = nyucal.CalendarStore(source)
     for line in store.calendar_names:
         click.echo(line)
+
+
+@main.command()
+@click.argument('name', nargs=1)
+@click.option('--source', '-s', default=nyucal.SOURCE_URL,
+              help="""Calendars source (URL, file path, or string).
+              (default: {} """.format(nyucal.SOURCE_URL))
+@click.option('--format', '-f',
+              type=click.Choice(['gcalcsv']),
+              default='gcalcsv',
+              help='Write in this format')
+@click.option('--output', '-o', type=click.File('w'), default='-',
+              help='Write to this file (default: stdout)')
+def get(source, name, format, output):
+    """Get the calendar named NAME and output in the specified format
+
+    If NAME contains a space, it will need to be quoted.
+
+    Since the calendar store is, by default, scraped from a web page,
+    this command will fail if no source is specified and the computer
+    is not online.
+    """
+    store = nyucal.CalendarStore(source)
+    calendar = store.calendar(name)
+    writers = {'gcalcsv': nyucal.GcalCsvWriter}
+    writer = writers[format.lower()](output)
+    writer.write(calendar)
 
 
 if __name__ == "__main__":
