@@ -4,3 +4,4 @@ nyucal.egg-info/
 nyucal/__pycache__/
 tests/__pycache__
 tests/__pycache__/*
+docs/_build
