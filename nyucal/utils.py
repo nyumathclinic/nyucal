@@ -24,8 +24,8 @@ def log_begin(func):
     """
     @wraps(func)
     def wrapper(*args, **kwds):
-        logging.getLogger(f.__name__).info("begin")
-        return f(*args, **kwds)
+        logging.getLogger(func.__name__).info("begin")
+        return func(*args, **kwds)
     return wrapper
 
 
@@ -43,8 +43,8 @@ def log_end(func):
     """
     @wraps(func)
     def wrapper(*args, **kwds):
-        res = f(*args, **kwds)
-        logging.getLogger(f.__name__).info("end")
+        res = func(*args, **kwds)
+        logging.getLogger(func.__name__).info("end")
         return res
     return wrapper
 
@@ -73,7 +73,7 @@ def log_result(func):
     """
     @wraps(func)
     def wrapper(*args, **kwds):
-        res = f(*args, **kwds)
-        logging.getLogger(f.__name__).info("result: %s", repr(res))
+        res = func(*args, **kwds)
+        logging.getLogger(func.__name__).info("result: %s", repr(res))
         return res
     return wrapper
