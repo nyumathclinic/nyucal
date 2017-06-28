@@ -3,6 +3,11 @@
 """Console script for nyucal.
 
 See click documentation at http://click.pocoo.org/
+
+Auto-generated documentation coming soon.
+See the sphinx-click_ plugin.
+
+.. _sphinx-click: https://github.com/click-contrib/sphinx-click
 """
 
 import io

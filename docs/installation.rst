@@ -81,7 +81,7 @@ Or download the `tarball`_:
 
 .. code-block:: console
 
-    $ curl  -OL https://github.com/leingang/nyucal/tarball/master
+    $ curl  -OL https://github.com/nyumathclinic/nyucal/tarball/master
 
 Once you have a copy of the source, you can install it in the 
 virtual evironment with:
@@ -106,13 +106,9 @@ You can also install not in a virtual environment, as user:
 
     $ python setup.py install --user
 
-
-
-
-
-
 .. _Github repo: https://github.com/nyumathclinic/nyucal
 .. _tarball: https://github.com/nyumathclinic/nyucal/tarball/master
+
 
 Installing from Github
 ----------------------
@@ -129,7 +125,8 @@ You should be able to install from the github repo instead:
 
     $ pip install git+https://github.com/nyumathclinic/nyucal.git
 
-For best results, use a virtual environment as above.
+For best results, use a virtual environment as above, and make sure that the
+:code:`pip` version running is the one in that virtual environment.
 
 If you don't have `pip`_ installed, this `Python installation guide`_ can guide
 you through the process.

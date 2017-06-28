@@ -56,7 +56,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'NYU Academic Calendar Processing'
-copyright = u"2017, Matthew Leingang"
+copyright = u"2017, Matthew Leingang and the NYU Math Clinic"
 
 # The version info for the project you're documenting, acts as replacement
 # for |version| and |release|, also used in various other places throughout
@@ -210,7 +210,7 @@ latex_elements = {
 latex_documents = [
     ('index', 'nyucal.tex',
      u'NYU Academic Calendar Processing Documentation',
-     u'Matthew Leingang', 'manual'),
+     u'Matthew Leingang and the NYU Math Clinic', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at
@@ -241,7 +241,7 @@ latex_documents = [
 man_pages = [
     ('index', 'nyucal',
      u'NYU Academic Calendar Processing Documentation',
-     [u'Matthew Leingang'], 1)
+     [u'Matthew Leingang and the NYU Math Clinic'], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -256,9 +256,9 @@ man_pages = [
 texinfo_documents = [
     ('index', 'nyucal',
      u'NYU Academic Calendar Processing Documentation',
-     u'Matthew Leingang',
+     u'Matthew Leingang and the NYU Math Clinic',
      'nyucal',
-     'One line description of project.',
+     '200 lines of code wrapped around one parser',
      'Miscellaneous'),
 ]
 
