@@ -14,6 +14,7 @@ from click.testing import CliRunner
 from nyucal import nyucal
 from nyucal import cli
 
+from difflib import unified_diff
 import py.path
 import requests
 from requests.exceptions import ConnectionError
@@ -137,7 +138,6 @@ def test_write_csv(calendar_store, tmpdir, goldendir):
     with test_path.open('w') as test_file:
         writer = nyucal.GcalCsvWriter(test_file)
         writer.write(calendar)
-    from difflib import unified_diff
     gold_path = goldendir.join('Fall2017.csv')
     with gold_path.open() as gold_file:
         lines = unified_diff(gold_file.readlines(), test_path.readlines(),
@@ -187,3 +187,41 @@ def test_cli_list_from_file(cli_runner, html_path):
     for name in gold_names:
         assert name in result.output
 
+
+def test_cli_get(cli_runner, html_path, goldendir):
+    """Test the `nyucal get` command from a local file, to stdout
+
+    I wanted to do more sophisticated diffing from the golden file
+    to the output, but :code:`result.output` is a single string, not a list
+    of lines.  Since the description fields contain newlines, simply
+    splitting on `\n` is not going to convert the output to a list
+    properly.  So we join all the lines of the golden file and check if
+    the strings are equal.
+    """
+    result = cli_runner.invoke(
+        cli.main, ['get', 'Fall 2017',
+                   '--source=' + str(html_path),
+                   '--format=gcalcsv'])
+    gold_path = goldendir.join('Fall2017.csv')
+    with gold_path.open() as gold_file:
+        expected_text = ''.join(gold_file.readlines())
+        received_text = result.output
+        assert expected_text == received_text
+
+
+def test_cli_get_to_file(cli_runner, html_path, goldendir, tmpdir):
+    """Test the `nyucal get` command from a local file, to a temporary file
+    """
+    gold_path = goldendir.join('Fall2017.csv')
+    test_path = tmpdir.join('Fall2017.csv')
+    result = cli_runner.invoke(
+        cli.main, ['get', 'Fall 2017',
+                   '--source=' + str(html_path),
+                   '--output=' + str(test_path),
+                   '--format=gcalcsv'])
+    with gold_path.open() as gold_file:
+        expected_text = gold_file.readlines()
+        received_text = test_path.open().readlines()
+        diff = unified_diff(expected_text, received_text,
+                            fromfile='expected', tofile='received')
+        assert ''.join(diff) == ''
