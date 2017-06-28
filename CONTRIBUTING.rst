@@ -4,9 +4,6 @@
 Contributing
 ============
 
-Contributions are welcome, and they are greatly appreciated! Every
-little bit helps, and credit will always be given.
-
 You can contribute in many ways:
 
 Types of Contributions
@@ -15,7 +12,7 @@ Types of Contributions
 Report Bugs
 ~~~~~~~~~~~
 
-Report bugs at https://github.com/leingang/nyucal/issues.
+Report bugs at https://github.com/nyumathclinic/nyucal/issues.
 
 If you are reporting a bug, please include:
 
@@ -45,7 +42,7 @@ articles, and such.
 Submit Feedback
 ~~~~~~~~~~~~~~~
 
-The best way to send feedback is to file an issue at https://github.com/leingang/nyucal/issues.
+The best way to send feedback is to file an issue at https://github.com/nyumathclinic/nyucal/issues.
 
 If you are proposing a feature:
 
@@ -64,7 +61,7 @@ Ready to contribute? Here's how to set up `nyucal` for local development.
 
     $ git clone git@github.com:your_name_here/nyucal.git
 
-3. Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development::
+3. Install your local copy into a virtualenv. Assuming you have virtualenvwrapper_ installed, this is how you set up your fork for local development::
 
     $ mkvirtualenv nyucal
     $ cd nyucal/
@@ -110,5 +107,6 @@ Tips
 
 To run a subset of tests::
 
-$ py.test tests.test_nyucal
+    $ py.test tests.test_nyucal
 
+.. _virtualenvwrapper: https://virtualenvwrapper.readthedocs.io/en/latest/index.html
