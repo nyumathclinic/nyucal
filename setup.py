@@ -29,7 +29,7 @@ test_requirements = [
 
 setup(
     name='nyucal',
-    version='0.1.0',
+    version='0.2.0',
     description="Nyucal is for parsing the NYU Academic Calendar webpage into machine readable calendar formats",
     long_description=readme + '\n\n' + history,
     author="Matthew Leingang",
