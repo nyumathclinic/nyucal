@@ -34,13 +34,13 @@ class CalendarStore(object):
         """Initializer"""
         if source is not None:
             try:
-                self.tree = html.parse(source)
+                self._tree = html.parse(source)
             except OSError:
                 try:
                     # Maybe it's a URL.  Replace with the contents of that URL
                     source = requests.get(source).text
                 except InvalidSchema:
-                    # Or maybe it's not.  Must be just a blob of text.
+                    # Or maybe it's not.  Must be just a blob of HTML.
                     pass
                 self._tree = html.parse(io.StringIO(source))
 
@@ -53,7 +53,7 @@ class CalendarStore(object):
     def calendar_names(self):
         """The list of available calendar names"""
         result = [elt.text.strip()
-                  for elt in self.tree.xpath('//div[@class="calTitle"]')]
+                  for elt in self._tree.xpath('//div[@class="calTitle"]')]
         return result
 
     def calendar(self, name):
@@ -63,7 +63,7 @@ class CalendarStore(object):
         try:
             table = [
                 elt.xpath('ancestor::table')[0]
-                for elt in self.tree.xpath('//div[@class="calTitle"]')
+                for elt in self._tree.xpath('//div[@class="calTitle"]')
                 if elt.text.strip() == name
             ].pop()
         except:
