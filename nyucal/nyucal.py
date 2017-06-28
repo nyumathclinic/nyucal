@@ -212,4 +212,3 @@ class GcalCsvWriter(csv.DictWriter):
             else:
                 event_dict['End Date'] = event.end.strftime(self._date_format)
             self.writerow(event_dict)
-

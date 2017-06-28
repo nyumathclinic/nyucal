@@ -10,12 +10,9 @@ See the sphinx-click_ plugin.
 .. _sphinx-click: https://github.com/click-contrib/sphinx-click
 """
 
-import io
-
 import click
 
 from nyucal import nyucal
-import requests
 
 
 @click.group()

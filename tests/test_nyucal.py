@@ -3,9 +3,7 @@
 
 """Tests for `nyucal` package."""
 
-import logging
 import os.path
-import sys
 
 import pytest
 
@@ -103,7 +101,7 @@ onlyif_online = pytest.mark.skipif(
 def test_calendar_store_construction_from_url():
     store = nyucal.CalendarStore(nyucal.SOURCE_URL)
     assert isinstance(store, nyucal.CalendarStore)
-    
+
 
 def test_get_calendar_names(calendar_store):
     """Test the `CalendarStore.calendar_names (property)` method"""
@@ -219,6 +217,7 @@ def test_cli_get_to_file(cli_runner, html_path, goldendir, tmpdir):
                    '--source=' + str(html_path),
                    '--output=' + str(test_path),
                    '--format=gcalcsv'])
+    assert result.exit_code == 0
     with gold_path.open() as gold_file:
         expected_text = gold_file.readlines()
         received_text = test_path.open().readlines()
