@@ -5,3 +5,5 @@ nyucal/__pycache__/
 tests/__pycache__
 tests/__pycache__/*
 docs/_build
+.vscode/
+build/
