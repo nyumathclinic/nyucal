@@ -173,7 +173,7 @@ def test_cli_list_from_url(cli_runner, html_path):
     result = cli_runner.invoke(cli.main,
                                ['list', '--source=' + nyucal.SOURCE_URL])
     assert result.exit_code == 0
-    for name in gold_names:
+    for name in ['Fall 2020','Spring 2021','Summer 2021']:
         assert name in result.output
 
 
