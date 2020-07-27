@@ -6,13 +6,13 @@
 import os.path
 
 import pytest
-
 from click.testing import CliRunner
 
 from nyucal import nyucal
 from nyucal import cli
 
 from difflib import unified_diff
+import ics
 import py.path
 import requests
 from requests.exceptions import ConnectionError
@@ -142,6 +142,37 @@ def test_write_csv(calendar_store, tmpdir, goldendir):
                              fromfile='expected', tofile='received')
         assert ''.join(lines) == ''
 
+def test_write_ics(calendar_store, tmpdir, goldendir):
+    """Test writing to an ICS file.
+    
+    The same script run twice in succession will not produce the same ICS file.
+    This is because (1) events are kept in a set with no specific order and
+    (2) events get a UID at creation so they will always be unique.
+
+    So we test by writing to an ICS file, reparsing it, parsing the “golden”
+    ICS file, then checking if each event of each calendar is in the other.
+
+    The “is in” first looks at the `repr`s of the events.  Since that
+    method prints the name, start date, and end date (if different), that's
+    pretty good.  Then it cheks the events' descriptions.  
+    """
+    calendar = calendar_store.calendar('Fall 2017')
+    test_path = tmpdir.join('test.ics')
+    with test_path.open('w') as test_file:
+        writer = nyucal.IcsWriter(test_file)
+        writer.write(calendar)
+    test_ics = ics.Calendar(imports=test_path.read())
+    gold_path = goldendir.join('Fall2017.ics')
+    gold_ics = ics.Calendar(imports=gold_path.read())
+    for event in test_ics.events:
+        matches = [e for e in gold_ics.events if repr(event) == repr(e)]
+        assert len(matches) == 1
+        assert event.description == matches[0].description
+    for event in gold_ics.events:
+        matches = [e for e in test_ics.events if repr(event) == repr(e)]
+        assert len(matches) == 1
+        assert event.description == matches[0].description
+    
 
 @pytest.fixture
 def cli_runner(request):

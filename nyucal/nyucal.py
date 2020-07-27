@@ -13,6 +13,7 @@ import inspect
 import io
 import logging
 
+import ics
 from lxml import html
 import requests
 from requests.exceptions import InvalidSchema
@@ -212,3 +213,22 @@ class GcalCsvWriter(csv.DictWriter):
             else:
                 event_dict['End Date'] = event.end.strftime(self._date_format)
             self.writerow(event_dict)
+
+class IcsWriter():
+    """Write a calendar to an ICS file suitable for serving to calendar applications."""
+
+    def __init__(self,file):
+        self.file = file
+
+    def write(self, calendar):
+        """Write the calendar"""
+        c = ics.Calendar()
+        for event in calendar.events:
+            e = ics.Event()
+            e.name = event.name
+            e.begin = event.start
+            e.end = event.end
+            e.description = event.description
+            e.make_all_day()
+            c.events.add(e)
+        self.file.write(str(c))

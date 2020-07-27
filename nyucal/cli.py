@@ -43,7 +43,7 @@ def list(source):
               help="""Calendars source (URL, file path, or string).
               (default: {} """.format(nyucal.SOURCE_URL))
 @click.option('--format', '-f',
-              type=click.Choice(['gcalcsv']),
+              type=click.Choice(['gcalcsv','ics']),
               default='gcalcsv',
               help='Write in this format')
 @click.option('--output', '-o', type=click.File('w'), default='-',
@@ -59,7 +59,10 @@ def get(source, name, format, output):
     """
     store = nyucal.CalendarStore(source)
     calendar = store.calendar(name)
-    writers = {'gcalcsv': nyucal.GcalCsvWriter}
+    writers = {
+        'gcalcsv': nyucal.GcalCsvWriter,
+        'ics': nyucal.IcsWriter
+        }
     writer = writers[format.lower()](output)
     writer.write(calendar)
 

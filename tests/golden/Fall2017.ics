@@ -1,0 +1,163 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:ics.py - http://git.io/lLljaA
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20170904
+DESCRIPTION:No classes scheduled / University Holiday
+SUMMARY:Labor Day
+UID:b768600e-5721-4d26-ae55-669c5d64f6cc@b768.org
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20171122
+DTEND;VALUE=DATE:20171127
+DESCRIPTION:No classes scheduled
+SUMMARY:Student Thanksgiving Recess
+UID:ea3d54ea-e2e8-41a1-bfbd-7a572b5979b5@ea3d.org
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20170918
+SUMMARY:Last day of initial registration on Albert for all students
+UID:b445779e-5326-4f4e-a9f2-7e10b6474346@b445.org
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20171223
+DTEND;VALUE=DATE:20180102
+DESCRIPTION:No classes scheduled
+SUMMARY:Student Winter Recess
+UID:80f3366f-6205-4100-8a73-461fe14bc156@80f3.org
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20171009
+DESCRIPTION:No classes scheduled
+SUMMARY:Fall Recess 
+UID:bbbdc72e-4b91-47e4-a3ea-2b44c53106ac@bbbd.org
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20170529
+DESCRIPTION:No classes scheduled / University Holiday
+SUMMARY:Memorial Day
+UID:2b9cea93-0bd6-4cc2-8524-451944ec0e51@2b9c.org
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20170324
+DESCRIPTION:Please review the withdrawal schedule to determine when a grade of 'W' will be issued when dropping classes.
+SUMMARY:Fall 2017 course search and registration status features available on Albert
+UID:fb86f42d-fd09-4058-ae15-29023eb16ca3@fb86.org
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20171215
+SUMMARY:Last day of Fall 2017 classes
+UID:f6c69624-4d1e-4dd7-95ef-59b045d9caf5@f6c6.org
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20170827
+SUMMARY:NYU Welcome Day / Move-in Day
+UID:76110f78-fda0-4c53-b4c9-0ace08994702@7611.org
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20171218
+DTEND;VALUE=DATE:20171223
+DESCRIPTION:College of Arts & Science\nCollege of Nursing - Undergraduate (Non-Nursing Clinical Sequence) & Graduate\nFaculty of Arts & Science/Liberal Studies\nGallatin School for Individualized Study\nGraduate School of Arts & Science\nLeonard N. Stern School of Business - Undergraduate College\nTandon School of Engineering\nRobert F. Wagner - Graduate School of Public Service\nSchool of Professional Studies - Credit Programs\nSilver School of Social Work\nSteinhardt School of Culture\, Education\, and Human Development\nTisch School of the Arts\nUniversity College/Global Public Health\n\nFinal Grades Deadline\nGrades are due 72 hours after the scheduled final exam date
+SUMMARY:Fall Semester Exams
+UID:292aef16-c8be-4041-960e-4a059d694b22@292a.org
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20170918
+SUMMARY:Last day to drop fall 2017 classes and not receive a grade of "W"
+UID:bf56460d-1f5d-4841-a55d-09597bcf7aa0@bf56.org
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20171106
+DESCRIPTION:Students should consult the academic calendar of their home school for specific deadlines pertaining to course withdrawal for the term.
+SUMMARY:Last day to use the Term Withdrawal Form to submit a fall semester term withdrawal request or submit a request to withdraw from a course
+UID:83d28f44-aaa9-4bf2-8473-756008a99a88@83d2.org
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20180102
+SUMMARY:The University reopens
+UID:a8be33d5-731e-461e-8e97-1c2679bff169@a8be.org
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20170919
+DESCRIPTION:Beginning today students who want to withdraw from a class should use the Request Class Withdrawal process.
+SUMMARY:All students who wish to perform initial registration or a registration transaction to add a class must go to their academic advisor or their academic department in order to initiate this request.
+UID:55a6e2ea-4bf7-4781-992c-e7a1821a4366@55a6.org
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20170919
+DESCRIPTION:No refund of tuition or fees for Undergraduate\, Graduate and Diploma students who are dropping classes\, but will remain enrolled in at least one course.
+SUMMARY:Courses dropped after the first two weeks of the semester
+UID:ec4d3a3e-799b-4b3e-9cda-c52d375d672f@ec4d.org
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20170424
+SUMMARY:Registration Begins by appointment for Undergraduate\, Graduate and Diploma students
+UID:f9851e2c-6e7c-482e-9fd8-2cfdbdfb8325@f985.org
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20170918
+SUMMARY:Last day to drop/add on Albert for all students
+UID:ecc851c2-66fc-4ad8-a914-c191f10508f7@ecc8.org
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20171123
+DTEND;VALUE=DATE:20171127
+DESCRIPTION:No classes scheduled / University Holiday
+SUMMARY:Thanksgiving Recess for University Offices
+UID:12b1125e-71e3-440b-a0e8-cbbc836b9f86@12b1.org
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20171212
+SUMMARY:Legislative Day - Classes will meet according to a Monday schedule
+UID:73247e4d-7b69-48b6-b254-2f3ee78ee19d@7324.org
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20171006
+SUMMARY:Graduation application deadline
+UID:8b5980fb-5918-43a9-884a-37a1a1491b33@8b59.org
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20170919
+SUMMARY:Beginning today students will be issued a grade of 'W' if they drop a class from their fall schedule or withdraw for the term
+UID:a82d3a68-22f4-4475-bba2-5d705758370b@a82d.org
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20170905
+SUMMARY:Fall 2017 classes begin
+UID:d2bc0d7a-5d38-4b9e-bfb5-c5e26478cc10@d2bc.org
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20170918
+SUMMARY:Last day of active waitlists
+UID:249d546d-d356-4d4f-99df-69b8c2b26cf4@249d.org
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20171223
+DTEND;VALUE=DATE:20180102
+DESCRIPTION:The University\, including the Office of the University Registrar\, will be closed from Saturday\, December 22\, 2017 through Monday\, January 1\, 2018.\n \nDuring this period requests for paper transcripts and enrollment certifications will not be processed.
+SUMMARY:Winter Recess for University Offices
+UID:ce1b285c-b12a-4005-b765-2fa179068c93@ce1b.org
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20170704
+DESCRIPTION:No classes scheduled / University Holiday
+SUMMARY:Independence Day
+UID:53701158-a438-4465-a40a-a6ebd7226800@5370.org
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20171106
+SUMMARY:Midterm Grades Deadline
+UID:d25b8467-059b-4035-8cb4-560eb697918f@d25b.org
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20170919
+SUMMARY:Waitlists will be purged
+UID:831992f8-ad8a-4ee0-92df-511776217ba8@8319.org
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20171216
+DTEND;VALUE=DATE:20171218
+SUMMARY:Reading Days
+UID:6e0162bf-263f-4035-9024-5ed25b60a495@6e01.org
+END:VEVENT
+END:VCALENDAR
