@@ -7,3 +7,4 @@ tests/__pycache__/*
 docs/_build
 .vscode/
 build/
+webui/__pycache__/__init__.cpython-36.pyc

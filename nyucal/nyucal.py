@@ -213,6 +213,7 @@ class GcalCsvWriter(csv.DictWriter):
             else:
                 event_dict['End Date'] = event.end.strftime(self._date_format)
             self.writerow(event_dict)
+            
 
 class IcsWriter():
     """Write a calendar to an ICS file suitable for serving to calendar applications."""

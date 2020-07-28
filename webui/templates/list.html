@@ -1,0 +1,12 @@
+<!doctype html>
+  <head>
+    <title>Calendar List</title>
+  </head>
+  <body>
+      <h1>List of Calendars</h1>
+      <ul>
+      {% for name in names %}
+          <li>{{ name }} [<a href="calendar/{{name|urlencode}}.csv">csv</a>] [<a href="calendar/{{name|urlencode}}.ics">ics</a>] </li>
+      {% endfor %}
+      </ul>
+  </body>
